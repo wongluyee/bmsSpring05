@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 
 import jp.co.f1.spring.bms.repository.BookRepository;
 import jp.co.f1.spring.bms.entity.Book;
@@ -33,7 +35,9 @@ public class BmsController {
 	
 	// [/insert]へアクセスがあった場合
 	@RequestMapping("/insert")
-	public ModelAndView insert(ModelAndView mav) {
+	public ModelAndView insert(@ModelAttribute Book book, ModelAndView mav) {
+		mav.addObject("book", book);
+		
 		mav.setViewName("insert");
 		
 		return mav;
@@ -42,7 +46,17 @@ public class BmsController {
 	// [/insert]へPOST送信された場合
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	// POSTデータをBookインスタンスとして受け取る
-	public ModelAndView insertPost(@ModelAttribute Book book, ModelAndView mav) {
+	public ModelAndView insertPost(@ModelAttribute @Validated Book book, BindingResult result, ModelAndView mav) {
+		// 入力エラーがある場合
+		if (result.hasErrors()) {
+			// エラーメッセージ
+			mav.addObject("message", "入力内容に誤りがあります");
+			
+			mav.setViewName("insert");
+			
+			return mav;
+		}
+		
 		// 入力されたデータをDBに保存
 		bookinfo.saveAndFlush(book);
 		
