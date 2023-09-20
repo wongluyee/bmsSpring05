@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>書籍登録</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<div id="wrap">
+		<header>
+			<div class="container">
+				<h1>書籍管理システムSpring版Ver0.5</h1>
+			</div>
+		</header>
+		
+		<div id="menu">
+			<div class="container">
+				<div id="nav">
+					<ul>
+						<li><a href="#">[メニュー]</a></li>
+						<li><a href="/list">[書籍一覧]</a></li>
+					</ul>
+				</div>
+				
+				<div id="page_title">
+					<h2>書籍登録</h2>
+				</div>
+			</div>
+		</div>
+		
+		<div id="main" class="container">
+			<form action="/insert" method="POST">
+				<table class="input-table" align="center">
+					<tr>
+						<th>ISBN</th>
+						<td><input type="text" name="isbn"></td>
+					</tr>
+					<tr>
+						<th>Title</th>
+						<td><input type="text" name="title"></td>
+					</tr>
+					<tr>
+						<th>Price</th>
+						<td><input type="text" name="price"></td>
+					</tr>
+				</table>
+				<input type="submit" value="登録">
+			</form>
+		</div>
+		
+		<footer>
+			<div class="container">
+				<h4>Copyright&copy; 2023 All Right Reserved.</h4>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

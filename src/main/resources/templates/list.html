@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Books</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<div id="wrap">
+		<header>
+			<div class="container">
+				<h1>書籍管理システムSpring版 Ver0.5</h1>
+			</div>
+		</header>
+		
+		<!-- Menu -->
+		<div id="menu">
+			<div class="container">
+				<!-- Navigation -->
+				<div id="nav">
+					<ul>
+						<li><a href="#">[メニュー]</a></li>
+						<li><a href="/insert">[書籍登録]</a></li>
+					</ul>
+				</div>
+				
+				<!-- Page title -->
+				<div id="page_title"><h2>書籍一覧</h2></div>
+			</div>
+		</div>
+		
+		<!-- Contents -->
+		<div id="main" class="container">
+			<!-- search form -->
+			<form class="inline-block" action="/search">
+				ISBN <input type="text" name="isbn">
+				Title <input type="text" name="title">
+				Price <input type="text" name="price">
+				<input type="submit" value="検索">
+			</form>
+			
+			<form class="inline-block" action="/list">
+				<input type="submit" value="全件表示">
+			</form>
+			
+			<!-- books info list -->
+			<table class="list-table">
+				<thread>
+					<tr>
+						<th>ISBN</th>
+						<th>Title</th>
+						<th>Price</th>
+						<th>変更 / 削除</th>
+					</tr>
+				</thread>
+				<tbody th:if="${book_list.size() >= 1}">
+					<tr th:each="book : ${book_list}" th:object="${book}">
+						<td><a href="#" th:text="${book.isbn}"></a></td>
+						<td th:text="${book.title}"></td>
+						<td th:text="${book.price}"></td>
+						<td>
+							<a href="#">変更</a>
+							<a href="#">削除</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<!-- footer -->
+		<footer>
+			<div class="container">
+				<h4>Copyright&copy; 2023 All Right Reserved.</h4>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>
